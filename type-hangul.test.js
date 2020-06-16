@@ -53,3 +53,21 @@ describe('join', () => {
     });
 
 });
+
+describe('split', () => {
+
+    describe('hangul이 한글인 경우', () => {
+        test('분해한 초중종성 배열 반환', () => {
+            let hangul = '글';
+            expect(TypeHangul.split(hangul)).toStrictEqual([0, 18, 8]);
+        });
+    });
+
+    describe('hangul이 한글이 아닌 경우', () => {
+        test('빈 배열 반환', () => {
+            let hangul = '1';
+            expect(TypeHangul.split(hangul)).toStrictEqual([]);
+        });
+    });
+
+});

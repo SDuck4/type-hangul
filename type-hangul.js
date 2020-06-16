@@ -24,6 +24,15 @@
         return String.fromCharCode(((cho * 21) + jung) * 28 + jong + HANGUL_RANGE_START);
     }
 
+    // hangul을 나눈 [cho, jung, jong] 반환
+    function _split(hangul) {
+        hangul = hangul - HANGUL_RANGE_START;
+        var jong = hangul % 28;
+        var jung = ((hangul - jong) / 28) % 21;
+        var cho = (((hangul - jong) / 28) - jung) / 21;
+        return [cho, jung, jong];
+    }
+
     // val가 min ~ max 범위 안에 포함되는 숫자면 true 반환
     function _validateNumber(val, min, max) {
         if (typeof val !== 'number') {
@@ -49,6 +58,15 @@
                 return _join(cho, jung, jong);
             }
             return '';
+        },
+        split: function (hangul) {
+            if (typeof hangul === 'string') {
+                hangul = hangul.charCodeAt(0);
+            }
+            if (_isHangul(hangul) === false) {
+                return [];
+            }
+            return _split(hangul);
         },
     };
 
