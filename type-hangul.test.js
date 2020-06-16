@@ -64,9 +64,9 @@ describe('split', () => {
     });
 
     describe('hangul이 한글이 아닌 경우', () => {
-        test('빈 배열 반환', () => {
+        test('hangul이 담긴 배열 반환', () => {
             let hangul = '1';
-            expect(TypeHangul.split(hangul)).toStrictEqual([]);
+            expect(TypeHangul.split(hangul)).toStrictEqual(['1']);
         });
     });
 
