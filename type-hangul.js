@@ -8,7 +8,18 @@
 
 (function () {
 
-    var typeHangul = {};
+    // char가 한글인 경우 true 반환
+    function _isHangul(char) {
+    }
+
+    var typeHangul = {
+        isHangul: function (char) {
+            if (typeof char === 'string') {
+                char = char.charCodeAt(0);
+            }
+            return _isHangul(char);
+        }
+    };
 
     if (typeof define == 'function' && define.amd) {
         define(function () {
