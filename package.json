@@ -4,7 +4,7 @@
   "description": "한글 타이핑 효과",
   "main": "type-hangul.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
