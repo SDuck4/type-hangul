@@ -64,9 +64,53 @@ describe('split', () => {
     });
 
     describe('hangul이 한글이 아닌 경우', () => {
-        test('빈 배열 반환', () => {
+        test('hangul이 담긴 배열 반환', () => {
             let hangul = '1';
-            expect(TypeHangul.split(hangul)).toStrictEqual([]);
+            expect(TypeHangul.split(hangul)).toStrictEqual(['1']);
+        });
+    });
+
+});
+
+describe('getTypeProcess', () => {
+
+    describe('str이 문자열이 아닌 경우', () => {
+        test('빈 배열 반환', () => {
+            let str = 1234;
+            let typeProcess = [];
+            expect(TypeHangul.getTypeProcess(str)).toStrictEqual(typeProcess);
+        });
+    });
+
+    describe('str이 한글인 경우', () => {
+        test('한글 두벌식 타이핑 과정이 담긴 배열 반환', () => {
+            let str = '한글';
+            let typeProcess = ['ㅎ', '하', '한', '한ㄱ', '한그', '한글'];
+            expect(TypeHangul.getTypeProcess(str)).toStrictEqual(typeProcess);
+        });
+    });
+
+    describe('str의 중성에 이중모음이 있는 경우', () => {
+        test('이중모음 입력 과정을 포함한 타이핑 과정이 담긴 배열 반환', () => {
+            let str = '외';
+            let typeProcess = ['ㅇ', '오', '외'];
+            expect(TypeHangul.getTypeProcess(str)).toStrictEqual(typeProcess);
+        });
+    });
+
+    describe('str의 종성에 이중자음이 있는 경우', () => {
+        test('이중자음 입력 과정을 포함한 타이핑 과정이 담긴 배열 반환', () => {
+            let str = '슭';
+            let typeProcess = ['ㅅ', '스', '슬', '슭'];
+            expect(TypeHangul.getTypeProcess(str)).toStrictEqual(typeProcess);
+        });
+    });
+
+    describe('str이 한글이 아닌 경우', () => {
+        test('타이핑 과정이 담긴 배열 반환', () => {
+            let str = 'Hello!!';
+            let typeProcess = ['H', 'He', 'Hel', 'Hell', 'Hello', 'Hello!', 'Hello!!'];
+            expect(TypeHangul.getTypeProcess(str)).toStrictEqual(typeProcess);
         });
     });
 
