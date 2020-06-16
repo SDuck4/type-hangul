@@ -64,11 +64,11 @@
             return '';
         },
         split: function (hangul) {
+            if (typeHangul.isHangul(hangul) === false) {
+                return [hangul];
+            }
             if (typeof hangul === 'string') {
                 hangul = hangul.charCodeAt(0);
-            }
-            if (_isHangul(hangul) === false) {
-                return [];
             }
             return _split(hangul);
         },
