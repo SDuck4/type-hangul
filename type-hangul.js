@@ -19,13 +19,37 @@
         return HANGUL_RANGE_START <= char && char <= HANGUL_RANGE_END;
     }
 
+    // cho, jung, jong을 합친 한글 반환
+    function _join(cho, jung, jong) {
+        return String.fromCharCode(((cho * 21) + jung) * 28 + jong + HANGUL_RANGE_START);
+    }
+
+    // val가 min ~ max 범위 안에 포함되는 숫자면 true 반환
+    function _validateNumber(val, min, max) {
+        if (typeof val !== 'number') {
+            return false;
+        }
+        if (isNaN(val)) {
+            return false;
+        }
+        return min <= val && val <= max;
+    }
+
     var typeHangul = {
         isHangul: function (char) {
             if (typeof char === 'string') {
                 char = char.charCodeAt(0);
             }
             return _isHangul(char);
-        }
+        },
+        join: function (cho, jung, jong) {
+            if (_validateNumber(cho, 0, 18) &&
+                _validateNumber(jung, 0, 20) &&
+                _validateNumber(jong, 0, 27)) {
+                return _join(cho, jung, jong);
+            }
+            return '';
+        },
     };
 
     if (typeof define == 'function' && define.amd) {
