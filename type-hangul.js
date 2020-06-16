@@ -33,6 +33,10 @@
         return [cho, jung, jong];
     }
 
+    // str을 타이핑하는 과정을 담은 배열 반환
+    function _getTypeProcess(str) {
+    }
+
     // val가 min ~ max 범위 안에 포함되는 숫자면 true 반환
     function _validateNumber(val, min, max) {
         if (typeof val !== 'number') {
@@ -67,6 +71,9 @@
                 return [];
             }
             return _split(hangul);
+        },
+        getTypeProcess: function (str) {
+            return _getTypeProcess(str);
         },
     };
 
