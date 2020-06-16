@@ -19,13 +19,20 @@
         return HANGUL_RANGE_START <= char && char <= HANGUL_RANGE_END;
     }
 
+    // cho, jung, jong을 합친 한글 반환
+    function _join(cho, jung, jong) {
+    }
+
     var typeHangul = {
         isHangul: function (char) {
             if (typeof char === 'string') {
                 char = char.charCodeAt(0);
             }
             return _isHangul(char);
-        }
+        },
+        join: function (cho, jung, jong) {
+            return _join(cho, jung, jong);
+        },
     };
 
     if (typeof define == 'function' && define.amd) {
