@@ -109,6 +109,10 @@
         return typeProcess;
     }
 
+    // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
+    function _type(selector, text, options) {
+    }
+
     // val가 min ~ max 범위 안에 포함되는 숫자면 true 반환
     function _validateNumber(val, min, max) {
         if (typeof val !== 'number') {
@@ -149,6 +153,9 @@
                 return [];
             }
             return _getTypeProcess(str);
+        },
+        type: function (selector, text, options) {
+            _type(selector, text, options);
         },
     };
 
