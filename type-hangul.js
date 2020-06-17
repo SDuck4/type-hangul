@@ -8,6 +8,20 @@
 
 (function () {
 
+    // 기본 옵션
+    var DEFAULT_OPTIONS = {
+
+        // 타이핑 사이 시간 간격, ms
+        intervalType: 150,
+
+        // 글자 사이 시간 간격, ms
+        intervalChar: 200,
+
+        // 기존 텍스트 뒤에 이어서 출력할 지 여부
+        append: false,
+
+    };
+
     // 유니코드 한글 범위 시작, 가
     var HANGUL_RANGE_START = 0xAC00;
 
@@ -36,18 +50,16 @@
         return [cho, jung, jong];
     }
 
-    // str을 타이핑하는 과정을 담은 배열 반환
-    function _getTypeProcess(str) {
-        var typeProcess = [];
-        var lastType = '';
-        for (var i in str) {
-            var char = str[i];
+    // text을 타이핑하는 과정을 담은 배열 반환
+    function _getTypeProcess(text) {
+        var textProcess = [];
+        for (var i in text) {
+            var char = text[i];
             var jamos = typeHangul.split(char);
 
             // char가 한글이 아닌 경우
             if (jamos.length === 1) {
-                lastType = lastType + jamos[0];
-                typeProcess.push(lastType);
+                textProcess.push(jamos);
                 continue;
             }
 
@@ -55,40 +67,41 @@
             var cho = jamos[0];
             var jung = jamos[1];
             var jong = jamos[2];
+            var charProcess = [];
 
             // 초성 타이핑
-            typeProcess.push(lastType + HANGUL_CHO[cho]);
+            charProcess.push(HANGUL_CHO[cho]);
 
             // 중성 타이핑
             switch (jung) {
                 case 9:     // ㅘ : ㅗ ㅘ
                 case 10:    // ㅙ : ㅗ ㅙ
                 case 11:    // ㅚ : ㅗ ㅚ
-                    typeProcess.push(lastType + typeHangul.join(cho, 8, 0));
+                    charProcess.push(typeHangul.join(cho, 8, 0));
                     break;
                 case 14:    // ㅝ : ㅜ ㅝ
                 case 15:    // ㅞ : ㅜ ㅞ
                 case 16:    // ㅟ : ㅜ ㅟ
-                typeProcess.push(lastType + typeHangul.join(cho, 13, 0));
+                charProcess.push(typeHangul.join(cho, 13, 0));
                     break;
                 case 19:    // ㅢ : ㅡ ㅢ
-                typeProcess.push(lastType + typeHangul.join(cho, 18, 0));
+                charProcess.push(typeHangul.join(cho, 18, 0));
                     break;
             }
-            typeProcess.push(lastType + typeHangul.join(cho, jung, 0));
+            charProcess.push(typeHangul.join(cho, jung, 0));
 
             // 종성 타이핑
             if (jong === 0) {
-                lastType = lastType + char;
+                textProcess.push(charProcess);
                 continue;
             }
             switch (jong) {
                 case 3:     // ㄳ : ㄱ ㄳ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 1));
+                    charProcess.push(typeHangul.join(cho, jung, 1));
                     break;
                 case 5:     // ㄵ : ㄴ ㄵ
                 case 6:     // ㄶ : ㄴ ㄶ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 4));
+                    charProcess.push(typeHangul.join(cho, jung, 4));
                     break;
                 case 9:     // ㄺ : ㄹ ㄺ
                 case 10:    // ㄻ : ㄹ ㄻ
@@ -97,16 +110,63 @@
                 case 13:    // ㄾ : ㄹ ㄾ
                 case 14:    // ㄿ : ㄹ ㄿ
                 case 15:    // ㅀ : ㄹ ㅀ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 8));
+                    charProcess.push(typeHangul.join(cho, jung, 8));
                     break;
                 case 18:    // ㅄ : ㅂ ㅄ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 17));
+                    charProcess.push(typeHangul.join(cho, jung, 17));
                     break;
             }
-            typeProcess.push(lastType + typeHangul.join(cho, jung, jong));
-            lastType = lastType + char;
+            charProcess.push(typeHangul.join(cho, jung, jong));
+            textProcess.push(charProcess);
         }
-        return typeProcess;
+        return textProcess;
+    }
+
+    // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
+    function _type(selector, text, options) {
+
+        // 기본 옵션 적용
+        options = _merge(DEFAULT_OPTIONS, options);
+
+        // 출력 대상 DOM
+        var target = document.querySelector(selector);
+
+        // 타이핑 관련 변수들
+        var typeProcess = typeHangul.getTypeProcess(text);
+        var idxChar = 0;
+        var idxType = 0;
+        var interval = 0;
+        var lastType = options.append ? target.textContent : '';
+
+        // 타이핑 인터벌 함수
+        function doType() {
+
+            // char 타이핑 완료
+            if (idxType >= typeProcess[idxChar].length) {
+                idxChar = idxChar + 1;
+                idxType = 0;
+                interval = options.intervalChar;
+                lastType = target.textContent;
+
+                // text 타이핑 완료
+                if (idxChar >= typeProcess.length) {
+                    return;
+                }
+
+                setTimeout(doType, interval);
+                return;
+            }
+
+            // 타이핑 과정 출력
+            target.textContent = lastType + typeProcess[idxChar][idxType];
+            idxType = idxType + 1;
+            interval = options.intervalType;
+
+            setTimeout(doType, interval);
+        }
+
+        // 타이핑 인터벌 시작
+        doType();
     }
 
     // val가 min ~ max 범위 안에 포함되는 숫자면 true 반환
@@ -118,6 +178,15 @@
             return false;
         }
         return min <= val && val <= max;
+    }
+
+    // obj1에 obj2를 합친 객체를 반환
+    function _merge(obj1, obj2) {
+        var merged = JSON.parse(JSON.stringify(obj1));
+        for (var key in obj2) {
+            merged[key] = obj2[key];
+        }
+        return merged;
     }
 
     var typeHangul = {
@@ -144,11 +213,14 @@
             }
             return _split(hangul);
         },
-        getTypeProcess: function (str) {
-            if (typeof str !== 'string') {
+        getTypeProcess: function (text) {
+            if (typeof text !== 'string') {
                 return [];
             }
-            return _getTypeProcess(str);
+            return _getTypeProcess(text);
+        },
+        type: function (selector, text, options) {
+            _type(selector, text, options);
         },
     };
 
