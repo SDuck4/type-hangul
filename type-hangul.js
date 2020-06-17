@@ -136,7 +136,12 @@
         var idxChar = 0;
         var idxType = 0;
         var interval = 0;
-        var lastType = options.append ? target.textContent : '';
+        var lastType;
+        if (target.nodeName === 'INPUT') {
+            lastType = options.append ? target.value : '';
+        } else {
+            lastType = options.append ? target.textContent : '';
+        }
 
         // 타이핑 인터벌 함수
         function doType() {
@@ -147,6 +152,11 @@
                 idxType = 0;
                 interval = options.intervalChar;
                 lastType = target.textContent;
+                if (target.nodeName === 'INPUT') {
+                    lastType = target.value;
+                } else {
+                    lastType = target.textContent;
+                }
 
                 // text 타이핑 완료
                 if (idxChar >= typeProcess.length) {
@@ -158,7 +168,11 @@
             }
 
             // 타이핑 과정 출력
-            target.textContent = lastType + typeProcess[idxChar][idxType];
+            if (target.nodeName === 'INPUT') {
+                target.value = lastType + typeProcess[idxChar][idxType];
+            } else {
+                target.textContent = lastType + typeProcess[idxChar][idxType];
+            }
             idxType = idxType + 1;
             interval = options.intervalType;
 
