@@ -38,16 +38,14 @@
 
     // text을 타이핑하는 과정을 담은 배열 반환
     function _getTypeProcess(text) {
-        var typeProcess = [];
-        var lastType = '';
+        var textProcess = [];
         for (var i in text) {
             var char = text[i];
             var jamos = typeHangul.split(char);
 
             // char가 한글이 아닌 경우
             if (jamos.length === 1) {
-                lastType = lastType + jamos[0];
-                typeProcess.push(lastType);
+                textProcess.push(jamos);
                 continue;
             }
 
@@ -55,40 +53,41 @@
             var cho = jamos[0];
             var jung = jamos[1];
             var jong = jamos[2];
+            var charProcess = [];
 
             // 초성 타이핑
-            typeProcess.push(lastType + HANGUL_CHO[cho]);
+            charProcess.push(HANGUL_CHO[cho]);
 
             // 중성 타이핑
             switch (jung) {
                 case 9:     // ㅘ : ㅗ ㅘ
                 case 10:    // ㅙ : ㅗ ㅙ
                 case 11:    // ㅚ : ㅗ ㅚ
-                    typeProcess.push(lastType + typeHangul.join(cho, 8, 0));
+                    charProcess.push(typeHangul.join(cho, 8, 0));
                     break;
                 case 14:    // ㅝ : ㅜ ㅝ
                 case 15:    // ㅞ : ㅜ ㅞ
                 case 16:    // ㅟ : ㅜ ㅟ
-                typeProcess.push(lastType + typeHangul.join(cho, 13, 0));
+                charProcess.push(typeHangul.join(cho, 13, 0));
                     break;
                 case 19:    // ㅢ : ㅡ ㅢ
-                typeProcess.push(lastType + typeHangul.join(cho, 18, 0));
+                charProcess.push(typeHangul.join(cho, 18, 0));
                     break;
             }
-            typeProcess.push(lastType + typeHangul.join(cho, jung, 0));
+            charProcess.push(typeHangul.join(cho, jung, 0));
 
             // 종성 타이핑
             if (jong === 0) {
-                lastType = lastType + char;
+                textProcess.push(charProcess);
                 continue;
             }
             switch (jong) {
                 case 3:     // ㄳ : ㄱ ㄳ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 1));
+                    charProcess.push(typeHangul.join(cho, jung, 1));
                     break;
                 case 5:     // ㄵ : ㄴ ㄵ
                 case 6:     // ㄶ : ㄴ ㄶ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 4));
+                    charProcess.push(typeHangul.join(cho, jung, 4));
                     break;
                 case 9:     // ㄺ : ㄹ ㄺ
                 case 10:    // ㄻ : ㄹ ㄻ
@@ -97,16 +96,16 @@
                 case 13:    // ㄾ : ㄹ ㄾ
                 case 14:    // ㄿ : ㄹ ㄿ
                 case 15:    // ㅀ : ㄹ ㅀ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 8));
+                    charProcess.push(typeHangul.join(cho, jung, 8));
                     break;
                 case 18:    // ㅄ : ㅂ ㅄ
-                    typeProcess.push(lastType + typeHangul.join(cho, jung, 17));
+                    charProcess.push(typeHangul.join(cho, jung, 17));
                     break;
             }
-            typeProcess.push(lastType + typeHangul.join(cho, jung, jong));
-            lastType = lastType + char;
+            charProcess.push(typeHangul.join(cho, jung, jong));
+            textProcess.push(charProcess);
         }
-        return typeProcess;
+        return textProcess;
     }
 
     // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
