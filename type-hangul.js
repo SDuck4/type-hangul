@@ -8,6 +8,20 @@
 
 (function () {
 
+    // 기본 옵션
+    var DEFAULT_OPTIONS = {
+
+        // 타이핑 사이 시간 간격, ms
+        intervalType: 150,
+
+        // 글자 사이 시간 간격, ms
+        intervalChar: 200,
+
+        // 기존 텍스트 뒤에 이어서 출력할 지 여부
+        append: false,
+
+    };
+
     // 유니코드 한글 범위 시작, 가
     var HANGUL_RANGE_START = 0xAC00;
 
@@ -110,6 +124,49 @@
 
     // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
     function _type(selector, text, options) {
+
+        // 기본 옵션 적용
+        options = _merge(DEFAULT_OPTIONS, options);
+
+        // 출력 대상 DOM
+        var target = document.querySelector(selector);
+
+        // 타이핑 관련 변수들
+        var typeProcess = typeHangul.getTypeProcess(text);
+        var idxChar = 0;
+        var idxType = 0;
+        var interval = 0;
+        var lastType = options.append ? target.textContent : '';
+
+        // 타이핑 인터벌 함수
+        function doType() {
+
+            // char 타이핑 완료
+            if (idxType >= typeProcess[idxChar].length) {
+                idxChar = idxChar + 1;
+                idxType = 0;
+                interval = options.intervalChar;
+                lastType = target.textContent;
+
+                // text 타이핑 완료
+                if (idxChar >= typeProcess.length) {
+                    return;
+                }
+
+                setTimeout(doType, interval);
+                return;
+            }
+
+            // 타이핑 과정 출력
+            target.textContent = lastType + typeProcess[idxChar][idxType];
+            idxType = idxType + 1;
+            interval = options.intervalType;
+
+            setTimeout(doType, interval);
+        }
+
+        // 타이핑 인터벌 시작
+        doType();
     }
 
     // val가 min ~ max 범위 안에 포함되는 숫자면 true 반환
@@ -121,6 +178,15 @@
             return false;
         }
         return min <= val && val <= max;
+    }
+
+    // obj1에 obj2를 합친 객체를 반환
+    function _merge(obj1, obj2) {
+        var merged = JSON.parse(JSON.stringify(obj1));
+        for (var key in obj2) {
+            merged[key] = obj2[key];
+        }
+        return merged;
     }
 
     var typeHangul = {
