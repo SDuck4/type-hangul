@@ -36,12 +36,12 @@
         return [cho, jung, jong];
     }
 
-    // str을 타이핑하는 과정을 담은 배열 반환
-    function _getTypeProcess(str) {
+    // text을 타이핑하는 과정을 담은 배열 반환
+    function _getTypeProcess(text) {
         var typeProcess = [];
         var lastType = '';
-        for (var i in str) {
-            var char = str[i];
+        for (var i in text) {
+            var char = text[i];
             var jamos = typeHangul.split(char);
 
             // char가 한글이 아닌 경우
@@ -148,11 +148,11 @@
             }
             return _split(hangul);
         },
-        getTypeProcess: function (str) {
-            if (typeof str !== 'string') {
+        getTypeProcess: function (text) {
+            if (typeof text !== 'string') {
                 return [];
             }
-            return _getTypeProcess(str);
+            return _getTypeProcess(text);
         },
         type: function (selector, text, options) {
             _type(selector, text, options);
