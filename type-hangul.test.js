@@ -7,13 +7,13 @@ describe('type', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<div id="target"></div>';
             let selector = '#target';
-            let text = '안녕';
+            let text = '타이핑';
             let options = {
                 intervalType: 1000,
                 intervalChar: 0,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['ㅇ', '아', '안', '안ㄴ', '안녀', '안녕'];
+            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, text, options);
             for (let i = 0; i < typeProcess.length; i++) {
                 expect(target.textContent).toBe(typeProcess[i]);
@@ -27,13 +27,13 @@ describe('type', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<div id="target"></div>';
             let selector = '#target';
-            let text = '안녕';
+            let text = '타이핑';
             let options = {
                 intervalType: 1000,
                 intervalChar: 2000,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['ㅇ', '아', '안', '안', '안', '안ㄴ', '안녀', '안녕'];
+            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, text, options);
             for (let i = 0; i < typeProcess.length; i++) {
                 expect(target.textContent).toBe(typeProcess[i]);
@@ -68,13 +68,13 @@ describe('type', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<input id="target">';
             let selector = '#target';
-            let text = '안녕';
+            let text = '타이핑';
             let options = {
                 intervalType: 1000,
                 intervalChar: 0,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['ㅇ', '아', '안', '안ㄴ', '안녀', '안녕'];
+            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, text, options);
             for (let i = 0; i < typeProcess.length; i++) {
                 expect(target.value).toBe(typeProcess[i]);
@@ -88,13 +88,13 @@ describe('type', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<textarea id="target"></textarea>';
             let selector = '#target';
-            let text = '안녕';
+            let text = '타이핑';
             let options = {
                 intervalType: 1000,
                 intervalChar: 0,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['ㅇ', '아', '안', '안ㄴ', '안녀', '안녕'];
+            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, text, options);
             for (let i = 0; i < typeProcess.length; i++) {
                 expect(target.value).toBe(typeProcess[i]);
