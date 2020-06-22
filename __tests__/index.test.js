@@ -1,4 +1,4 @@
-const TypeHangul = require('./type-hangul');
+const TypeHangul = require('../src/index');
 
 describe('type', () => {
 
