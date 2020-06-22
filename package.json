@@ -18,5 +18,8 @@
   "homepage": "https://sduck4.github.io/type-hangul/",
   "devDependencies": {
     "jest": "^26.0.1"
+  },
+  "dependencies": {
+    "hangul-js": "^0.2.6"
   }
 }
