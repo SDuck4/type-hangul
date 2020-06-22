@@ -125,6 +125,15 @@ function _merge(obj1, obj2) {
 
 const TypeHangul = {
     type: function (selector, text, options) {
+
+        // selector 필수 입력
+        if (selector === undefined) {
+            throw new Error("'selector' cannnot be undefined");
+        }
+        if (selector === null) {
+            throw new Error("'selector' cannnot be null");
+        }
+
         _type(selector, text, options);
     },
 };
