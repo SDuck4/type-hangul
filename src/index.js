@@ -64,11 +64,7 @@ function _type(selector, text, options) {
     let idxType = 0;
     let interval = options.intervalType;
     let lastType;
-    if (target.nodeName === 'INPUT') {
-        lastType = options.append ? target.value : '';
-    } else {
-        lastType = options.append ? target.textContent : '';
-    }
+    lastType = options.append ? _getText(target) : '';
 
     // 타이핑 인터벌 함수
     function doType() {
@@ -81,11 +77,7 @@ function _type(selector, text, options) {
             idxRun = idxRun + 1;
             idxType = 0;
             lastType = target.textContent;
-            if (target.nodeName === 'INPUT') {
-                lastType = target.value;
-            } else {
-                lastType = target.textContent;
-            }
+            lastType = _getText(target);
 
             // text 타이핑 완료
             if (idxRun >= textProcess.length) {
@@ -98,11 +90,7 @@ function _type(selector, text, options) {
 
         // 타이핑 과정 출력
         let typing = a(run.slice(0, idxType + 1));
-        if (target.nodeName === 'INPUT') {
-            target.value = lastType + typing;
-        } else {
-            target.textContent = lastType + typing;
-        }
+        _setText(target, lastType + typing);
         idxType = idxType + 1;
         interval = options.intervalType;
 
@@ -121,6 +109,24 @@ function _merge(obj1, obj2) {
         merged[key] = obj2[key];
     }
     return merged;
+}
+
+// target DOM의 텍스트를 반환
+function _getText(target) {
+    if (target.nodeName === 'INPUT') {
+        return target.value;
+    } else {
+        return target.textContent;
+    }
+}
+
+// target DOM에 텍스트를 text로 설정
+function _setText(target, text) {
+    if (target.nodeName === 'INPUT') {
+        target.value = text;
+    } else {
+        target.textContent = text;
+    }
 }
 
 const TypeHangul = {
