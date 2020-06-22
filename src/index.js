@@ -6,19 +6,48 @@
  * Copyright (c) 2020 Chae SeungWoo
  */
 
-
-const Hangul = require('hangul-js');
+import { d, a } from 'hangul-js';
 
 // 기본 옵션
 const DEFAULT_OPTIONS = {
 
     // 타이핑 사이 시간 간격, ms
-    intervalType: 150,
+    intervalType: 120,
 
     // 기존 텍스트 뒤에 이어서 출력할 지 여부
     append: false,
 
 };
+
+// text가 타이핑되는 과정을 반환함
+function _process(text) {
+
+    // Hangul로 text의 자모음 분리
+    let disassembled = d(text, true);
+
+    // 타이핑 run 합치기
+    // run: 연속적으로 타이핑 되는 구간
+    let textProcess = [];
+    let run = [];
+    for (let i in disassembled) {
+        let charProcess = disassembled[i];
+        if (charProcess.length > 1) {
+            run = run.concat(charProcess);
+        } else {
+            if (run.length > 0) {
+                textProcess.push(run);
+                run = [];
+            }
+            textProcess.push(charProcess);
+        }
+    }
+    if (run.length > 0) {
+        textProcess.push(run);
+    }
+
+    return textProcess;
+
+}
 
 // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
 function _type(selector, text, options) {
@@ -30,7 +59,7 @@ function _type(selector, text, options) {
     let target = document.querySelector(selector);
 
     // 타이핑 관련 변수들
-    let typeProcess = Hangul.d(text, true);
+    let textProcess = _process(text);
     let idxRun = 0;
     let idxType = 0;
     let interval = options.intervalType;
@@ -44,8 +73,11 @@ function _type(selector, text, options) {
     // 타이핑 인터벌 함수
     function doType() {
 
+        // run: 연속적으로 타이핑 되는 구간
+        let run = textProcess[idxRun];
+
         // run 타이핑 완료
-        if (idxType >= typeProcess[idxRun].length) {
+        if (idxType >= run.length) {
             idxRun = idxRun + 1;
             idxType = 0;
             lastType = target.textContent;
@@ -56,7 +88,7 @@ function _type(selector, text, options) {
             }
 
             // text 타이핑 완료
-            if (idxRun >= typeProcess.length) {
+            if (idxRun >= textProcess.length) {
                 return;
             }
 
@@ -65,10 +97,11 @@ function _type(selector, text, options) {
         }
 
         // 타이핑 과정 출력
+        let typing = a(run.slice(0, idxType + 1));
         if (target.nodeName === 'INPUT') {
-            target.value = lastType + typeProcess[idxRun][idxType];
+            target.value = lastType + typing;
         } else {
-            target.textContent = lastType + typeProcess[idxRun][idxType];
+            target.textContent = lastType + typing;
         }
         idxType = idxType + 1;
         interval = options.intervalType;
@@ -78,6 +111,7 @@ function _type(selector, text, options) {
 
     // 타이핑 인터벌 시작
     doType();
+
 }
 
 // obj1에 obj2를 합친 객체를 반환
@@ -95,4 +129,5 @@ const TypeHangul = {
     },
 };
 
-module.exports = TypeHangul;
+window.TypeHangul = TypeHangul;
+export default TypeHangul;
