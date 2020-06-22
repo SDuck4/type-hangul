@@ -13,10 +13,10 @@ describe('type()', () => {
                 intervalChar: 0,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
+            let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, text, options);
-            for (let i = 0; i < typeProcess.length; i++) {
-                expect(target.textContent).toBe(typeProcess[i]);
+            for (let i = 0; i < textProcess.length; i++) {
+                expect(target.textContent).toBe(textProcess[i]);
                 jest.advanceTimersByTime(1000);
             }
         });
@@ -34,10 +34,10 @@ describe('type()', () => {
                 append: true,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['이젠ㅇ', '이젠아', '이젠안', '이젠안ㄴ', '이젠안녀', '이젠안녕'];
+            let textProcess = ['이젠ㅇ', '이젠아', '이젠안', '이젠안ㄴ', '이젠안녀', '이젠안녕'];
             TypeHangul.type(selector, text, options);
-            for (let i = 0; i < typeProcess.length; i++) {
-                expect(target.textContent).toBe(typeProcess[i]);
+            for (let i = 0; i < textProcess.length; i++) {
+                expect(target.textContent).toBe(textProcess[i]);
                 jest.advanceTimersByTime(1000);
             }
         });
@@ -54,10 +54,10 @@ describe('type()', () => {
                 intervalChar: 0,
             };
             let target = document.querySelector('#target');
-            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
+            let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, text, options);
-            for (let i = 0; i < typeProcess.length; i++) {
-                expect(target.value).toBe(typeProcess[i]);
+            for (let i = 0; i < textProcess.length; i++) {
+                expect(target.value).toBe(textProcess[i]);
                 jest.advanceTimersByTime(1000);
             }
         });
