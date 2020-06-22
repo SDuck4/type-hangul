@@ -1,9 +1,9 @@
 const TypeHangul = require('../src/index');
 
-describe('type', () => {
+describe('type()', () => {
 
-    describe('intervalType 옵션 테스트', () => {
-        test('타이핑 사이 시간 간격 1초', () => {
+    describe('intervalType 옵션으로 타이핑 사이 시간 간격을 조절할 수 있다.', () => {
+        it('intervalType이 1000 일 때, 1초 간격으로 타이핑된다.', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<div id="target"></div>';
             let selector = '#target';
@@ -22,28 +22,8 @@ describe('type', () => {
         });
     });
 
-    describe('intervalChar 옵션 테스트', () => {
-        test('글자 사이 시간 간격 2초', () => {
-            jest.useFakeTimers();
-            document.body.innerHTML = '<div id="target"></div>';
-            let selector = '#target';
-            let text = '타이핑';
-            let options = {
-                intervalType: 1000,
-                intervalChar: 2000,
-            };
-            let target = document.querySelector('#target');
-            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
-            TypeHangul.type(selector, text, options);
-            for (let i = 0; i < typeProcess.length; i++) {
-                expect(target.textContent).toBe(typeProcess[i]);
-                jest.advanceTimersByTime(1000);
-            }
-        });
-    });
-
-    describe('append 옵션 테스트', () => {
-        test('append가 true일 때 기존 텍스트 뒤에 출력', () => {
+    describe('append 옵션으로 기존 텍스트 뒤에 출력할 수 있다.', () => {
+        it('append가 true일 때 기존 텍스트 뒤에 출력된다.', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<div id="target">이젠</div>';
             let selector = '#target';
@@ -63,30 +43,10 @@ describe('type', () => {
         });
     });
 
-    describe('target이 <input> 태그일 때', () => {
-        test('타이핑 과정이 value로 출력', () => {
+    describe('target이 <input> 태그일 때 value에 출력된다.', () => {
+        it('타이핑 과정이 value로 출력된다.', () => {
             jest.useFakeTimers();
             document.body.innerHTML = '<input id="target">';
-            let selector = '#target';
-            let text = '타이핑';
-            let options = {
-                intervalType: 1000,
-                intervalChar: 0,
-            };
-            let target = document.querySelector('#target');
-            let typeProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
-            TypeHangul.type(selector, text, options);
-            for (let i = 0; i < typeProcess.length; i++) {
-                expect(target.value).toBe(typeProcess[i]);
-                jest.advanceTimersByTime(1000);
-            }
-        });
-    });
-
-    describe('target이 <textarea> 태그일 때', () => {
-        test('타이핑 과정이 value로 출력', () => {
-            jest.useFakeTimers();
-            document.body.innerHTML = '<textarea id="target"></textarea>';
             let selector = '#target';
             let text = '타이핑';
             let options = {
