@@ -1,4 +1,4 @@
-const TypeHangul = require('../src/index');
+import TypeHangul from '../src/index';
 
 describe('type()', () => {
 
