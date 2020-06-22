@@ -2,9 +2,10 @@
   "name": "type-hangul",
   "version": "0.1.0",
   "description": "한글 타이핑 효과",
-  "main": "type-hangul.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,11 @@
   },
   "homepage": "https://sduck4.github.io/type-hangul/",
   "devDependencies": {
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "hangul-js": "^0.2.6"
   }
 }
