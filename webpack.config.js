@@ -15,9 +15,9 @@ const defaultConfig = {
         filename: 'type-hangul.min.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    externals: [
-        'hangul-js',
-    ],
+    externals: {
+        'hangul-js': 'Hangul',
+    },
     plugins: [
         new webpack.BannerPlugin(banner),
     ],
