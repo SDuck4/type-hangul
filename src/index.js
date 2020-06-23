@@ -11,11 +11,14 @@ import { d, a } from 'hangul-js';
 // 기본 옵션
 const DEFAULT_OPTIONS = {
 
-    // 타이핑 사이 시간 간격, ms
-    intervalType: 120,
+    // 출력할 텍스트
+    text: null,
 
     // 기존 텍스트 뒤에 이어서 출력할 지 여부
     append: false,
+
+    // 타이핑 사이 시간 간격, ms
+    intervalType: 120,
 
 };
 
@@ -50,13 +53,19 @@ function _process(text) {
 }
 
 // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
-function _type(selector, text, options) {
+function _type(selector, options) {
 
     // 기본 옵션 적용
     options = _merge(DEFAULT_OPTIONS, options);
 
     // 출력 대상 DOM
     let target = document.querySelector(selector);
+
+    // text가 정의되지 않은 경우, target의 내용을 text로 설정
+    if (options.text === null) {
+        options.text = _getText(target);
+    }
+    let text = options.text;
 
     // 타이핑 관련 변수들
     let textProcess = _process(text);
@@ -130,7 +139,7 @@ function _setText(target, text) {
 }
 
 const TypeHangul = {
-    type: function (selector, text, options) {
+    type: function (selector, options) {
 
         // selector 필수 입력
         if (selector === undefined) {
@@ -140,7 +149,7 @@ const TypeHangul = {
             throw new Error("'selector' cannnot be null");
         }
 
-        _type(selector, text, options);
+        _type(selector, options);
     },
 };
 
