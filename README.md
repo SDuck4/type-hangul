@@ -33,6 +33,7 @@
 ```
 
 ### `TypeHangul.type(selector [, options])`
+
 - `selector`: 타이핑 효과를 출력할 DOM의 CSS Selector, 필수
 - `options`: 효과 옵션, 생략 가능
 
@@ -40,22 +41,22 @@
 
 ### `text`
 
-- **타입**: `string`
-- **기본값**: `null`
+- 타입: `string`
+- 기본값: `null`
 
 출력할 텍스트를 설정합니다. 설정하지 않을 경우, `selector`로 선택한 DOM의 텍스트를 출력합니다.
 
 ### `append`
 
-- **타입**: `boolean`
-- **기본값**: `false`
+- 타입: `boolean`
+- 기본값: `false`
 
 기존 텍스트 뒤에 이어서 출력할 지 여부를 설정합니다. `true`로 설정할 경우, `selector`로 선택한 DOM의 텍스트 뒤에 이어서 출력합니다.
 
 ### `intervalType`
 
-- **타입**: `number`
-- **기본값**: `120`
+- 타입: `number`
+- 기본값: `120`
 
 타이핑 사이 시간 간격을 설정합니다.
 
