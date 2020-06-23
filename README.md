@@ -12,11 +12,11 @@
 
 ```html
 <!-- 의존 라이브러리와 별개로 로드 -->
-<script src="https://cdn.jsdelivr.net/npm/hangul-js"></script>
-<script src="https://cdn.jsdelivr.net/npm/type-hangul@latest/dist/type-hangul.min.js"></script>
+<script src="https://unpkg.com/hangul-js"></script>
+<script src="https://unpkg.com/type-hangul@latest/dist/type-hangul.min.js"></script>
 
 <!-- 의존 라이브러리 번들한 파일 로드 -->
-<script src="https://cdn.jsdelivr.net/npm/type-hangul"></script>
+<script src="https://unpkg.com/type-hangul"></script>
 ```
 
 ### 직접 다운로드
