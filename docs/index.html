@@ -2,93 +2,99 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>type-hangul: ⌨️ 한글 타이핑 효과 라이브러리</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/type-hangul@0.1.0"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://unpkg.com/type-hangul"></script>
 </head>
 
-<body class="has-navbar-fixed-top">
-    <nav class="navbar is-fixed-top is-white">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item has-text-weight-semibold" href="#home">type-hangul</a>
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                    data-target="navbarMenuTop">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </a>
-            </div>
-            <div id="navbarMenuTop" class="navbar-menu">
-                <div class="navbar-end">
-                    <a class="navbar-item" href="#summary">개요</a>
-                    <a class="navbar-item" href="#install">설치</a>
-                    <a class="navbar-item" href="#examples">예제</a>
-                    <a class="navbar-item" href="#documentation">사용법</a>
-                    <span class="navbar-item">
-                        <a class="button is-primary is-inverted" href="https://github.com/SDuck4/type-hangul"
-                            target="_blank">
-                            <span class="icon">
-                                <i class="fab fa-github"></i>
-                            </span>
-                            <span>GitHub</span>
-                        </a>
-                    </span>
-                </div>
-            </div>
+<body>
+    <header>
+        <nav>
+            <a href="#home">type-hangul</a>
+            <ul>
+                <li><a href="#summary">개요</a></li>
+                <li><a href="#install">설치</a></li>
+                <li><a href="#how-to-use">사용법</a></li>
+                <li><a href="#options">옵션</a></li>
+                <li><a href="https://github.com/SDuck4/type-hangul">GitHub</a></li>
+            </ul>
+        </nav>
+        <div id="home">
+            <h1 id="home-title">한글 타이핑 효과 라이브러리</h1>
+            <p>type-hangul</p>
         </div>
-    </nav>
-    <section id="home" class="hero is-primary is-bold is-fullheight">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title is-1 is-spaced">type-hangul</h1>
-                <h2 id="home-subtitle" class="subtitle is-3">한글 타이핑 효과 라이브러리</h2>
-            </div>
-        </div>
-    </section>
-    <section id="summary" class="section">
-        <div class="container">
-            <h3 class="title">개요</h3>
-            <p>
-                한글 두벌식 자판에서 한 글자씩 타이핑되는 과정을 보여줄 수 있는 라이브러리입니다.
-            </p>
-        </div>
-    </section>
-    <section id="install" class="section">
-        <div class="container">
-            <h3 class="title">설치</h3>
-            <p>작성중</p>
-        </div>
-    </section>
-    <section id="examples" class="section">
-        <div class="container">
-            <h3 class="title">예제</h3>
-            <p>작성중</p>
-        </div>
-    </section>
-    <section id="documentation" class="section">
-        <div class="container">
-            <h3 class="title">사용법</h3>
-            <p>작성중</p>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <a href="https://bulma.io"><img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma"
-                        width="128" height="24"></a>
-            </p>
+    </header>
+    <main>
+        <hr>
+        <article id="summary">
+            <h2>개요</h2>
+            <p>한글 두벌식 자판에서 한 글자씩 타이핑되는 과정을 보여줄 수 있는 라이브러리입니다.</p>
+        </article>
+        <hr>
+        <article id="install">
+            <h2>설치</h2>
+            <h3>CDN</h3>
+            <pre><code>&lt;!-- 의존 라이브러리와 별개로 로드 --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/hangul-js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/type-hangul@latest/dist/type-hangul.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- 의존 라이브러리 번들한 파일 로드 --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/type-hangul"&gt;&lt;/script&gt;</code></pre>
+            <h3>직접 다운로드</h3>
+            <p><a href="https://github.com/SDuck4/type-hangul/releases">GitHub Releases</a>에서 최신 릴리즈를 직접 다운로드 받아 사용하실 수 있습니다.</p>
+        </article>
+        <hr>
+        <article id="how-to-use">
+            <h2>사용법</h2>
+            <pre><code>&lt;div id="target"&gt;안녕하세요.&lt;/div&gt;
+&lt;script&gt;
+    TypeHangul.type('#target');
+&lt;/script&gt;</code></pre>
+            <h3><code>TypeHangul.type(selector [, options])</code></h3>
+            <ul>
+                <li><code>selector</code>: 타이핑 효과를 출력할 DOM의 CSS Selector, 필수</li>
+                <li><code>options</code>: 효과 옵션, 생략 가능</li>
+            </ul>
+        </article>
+        <hr>
+        <article id="options">
+            <h2>옵션</h2>
+            <h3><code>text</code></h3>
+            <ul>
+                <li>타입: <code>string</code></li>
+                <li>기본값: <code>null</code></li>
+            </ul>
+            <p>출력할 텍스트를 설정합니다. 설정하지 않을 경우, <code>selector</code>로 선택한 DOM의 텍스트를 출력합니다.</p>
+            <h3><code>append</code></h3>
+            <ul>
+                <li>타입: <code>boolean</code></li>
+                <li>기본값: <code>false</code></li>
+            </ul>
+            <p>기존 텍스트 뒤에 이어서 출력할 지 여부를 설정합니다. <code>true</code>로 설정할 경우, <code>selector</code>로 선택한 DOM의 텍스트 뒤에 이어서 출력합니다.</p>
+            <h3><code>intervalType</code></h3>
+            <ul>
+                <li>타입: <code>number</code></li>
+                <li>기본값: <code>120</code></li>
+            </ul>
+            <p>타이핑 사이 시간 간격을 설정합니다.</p>
+        </article>
+    </main>
+    <footer>
+        <hr>
+        <section>
             <p>
                 <strong>type-hangul</strong> by <a href="https://github.com/SDuck4">SDuck4</a>.
                 The source code is licensed <a href="https://github.com/SDuck4/type-hangul/blob/master/LICENSE">MIT</a>.
             </p>
-        </div>
+        </section>
     </footer>
-    <script src="./index.js"></script>
+    <script>
+        TypeHangul.type('#home-title');
+    </script>
 </body>
 
 </html>
