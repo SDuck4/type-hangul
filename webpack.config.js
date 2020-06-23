@@ -7,15 +7,32 @@ https://github.com/SDuck4/type-hangul
 MIT License
 Copyright (c) 2020 Chae SeungWoo`;
 
-module.exports = {
+const defaultConfig = {
     mode: 'production',
     entry: './src/index.js',
+    target: 'web',
     output: {
-        filename: 'type-hangul.js',
+        filename: 'type-hangul.min.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    target: 'web',
+    externals: [
+        'hangul-js',
+    ],
     plugins: [
         new webpack.BannerPlugin(banner),
     ],
 };
+
+const bundleConfig = {
+    ...defaultConfig,
+    output: {
+        filename: 'type-hangul.bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    externals: [],
+};
+
+module.exports = [
+    defaultConfig,
+    bundleConfig,
+];
