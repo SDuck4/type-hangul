@@ -2,7 +2,7 @@
   "name": "type-hangul",
   "version": "0.2.1",
   "description": "한글 타이핑 효과",
-  "main": "src/index.js",
+  "main": "dist/type-hangul.bundle.js",
   "scripts": {
     "test": "jest",
     "build": "webpack"
