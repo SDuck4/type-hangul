@@ -11,11 +11,14 @@ import { d, a } from 'hangul-js';
 // 기본 옵션
 const DEFAULT_OPTIONS = {
 
-    // 타이핑 사이 시간 간격, ms
-    intervalType: 120,
+    // 출력할 텍스트
+    text: null,
 
     // 기존 텍스트 뒤에 이어서 출력할 지 여부
     append: false,
+
+    // 타이핑 사이 시간 간격, ms
+    intervalType: 120,
 
 };
 
@@ -50,7 +53,7 @@ function _process(text) {
 }
 
 // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
-function _type(selector, text, options) {
+function _type(selector, options) {
 
     // 기본 옵션 적용
     options = _merge(DEFAULT_OPTIONS, options);
@@ -58,17 +61,19 @@ function _type(selector, text, options) {
     // 출력 대상 DOM
     let target = document.querySelector(selector);
 
+    // text가 정의되지 않은 경우, target의 내용을 text로 설정
+    if (options.text === null) {
+        options.text = _getText(target);
+    }
+    let text = options.text;
+
     // 타이핑 관련 변수들
     let textProcess = _process(text);
     let idxRun = 0;
     let idxType = 0;
     let interval = options.intervalType;
     let lastType;
-    if (target.nodeName === 'INPUT') {
-        lastType = options.append ? target.value : '';
-    } else {
-        lastType = options.append ? target.textContent : '';
-    }
+    lastType = options.append ? _getText(target) : '';
 
     // 타이핑 인터벌 함수
     function doType() {
@@ -81,11 +86,7 @@ function _type(selector, text, options) {
             idxRun = idxRun + 1;
             idxType = 0;
             lastType = target.textContent;
-            if (target.nodeName === 'INPUT') {
-                lastType = target.value;
-            } else {
-                lastType = target.textContent;
-            }
+            lastType = _getText(target);
 
             // text 타이핑 완료
             if (idxRun >= textProcess.length) {
@@ -98,11 +99,7 @@ function _type(selector, text, options) {
 
         // 타이핑 과정 출력
         let typing = a(run.slice(0, idxType + 1));
-        if (target.nodeName === 'INPUT') {
-            target.value = lastType + typing;
-        } else {
-            target.textContent = lastType + typing;
-        }
+        _setText(target, lastType + typing);
         idxType = idxType + 1;
         interval = options.intervalType;
 
@@ -123,9 +120,36 @@ function _merge(obj1, obj2) {
     return merged;
 }
 
+// target DOM의 텍스트를 반환
+function _getText(target) {
+    if (target.nodeName === 'INPUT') {
+        return target.value;
+    } else {
+        return target.textContent;
+    }
+}
+
+// target DOM에 텍스트를 text로 설정
+function _setText(target, text) {
+    if (target.nodeName === 'INPUT') {
+        target.value = text;
+    } else {
+        target.textContent = text;
+    }
+}
+
 const TypeHangul = {
-    type: function (selector, text, options) {
-        _type(selector, text, options);
+    type: function (selector, options) {
+
+        // selector 필수 입력
+        if (selector === undefined) {
+            throw new Error("'selector' cannnot be undefined");
+        }
+        if (selector === null) {
+            throw new Error("'selector' cannnot be null");
+        }
+
+        _type(selector, options);
     },
 };
 
