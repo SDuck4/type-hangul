@@ -18,6 +18,9 @@
   },
   "homepage": "https://sduck4.github.io/type-hangul/",
   "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "babel-jest": "^26.0.1",
     "jest": "^26.0.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
