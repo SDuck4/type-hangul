@@ -88,6 +88,11 @@ function _type(target, options) {
 
             // text 타이핑 완료
             if (idxRun >= textProcess.length) {
+                const eventEndType = new CustomEvent('th.endType', {
+                    target,
+                    options,
+                });
+                target.dispatchEvent(eventEndType);
                 return;
             }
 
