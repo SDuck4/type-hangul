@@ -105,6 +105,11 @@ function _type(target, options) {
     }
 
     // 타이핑 인터벌 시작
+    const eventStartType = new CustomEvent('th.startType', {
+        target,
+        options,
+    });
+    target.dispatchEvent(eventStartType);
     doType();
 
 }
