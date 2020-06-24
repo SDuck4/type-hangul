@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
     <script src="https://unpkg.com/type-hangul"></script>
 </head>
 
@@ -39,7 +41,7 @@
         <article id="install">
             <h2>설치</h2>
             <h3>CDN</h3>
-            <pre><code>&lt;!-- 의존 라이브러리와 별개로 로드 --&gt;
+            <pre><code class="lang-html">&lt;!-- 의존 라이브러리와 별개로 로드 --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/hangul-js"&gt;&lt;/script&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/type-hangul@latest/dist/type-hangul.min.js"&gt;&lt;/script&gt;
 
@@ -51,7 +53,7 @@
         <hr>
         <article id="how-to-use">
             <h2>사용법</h2>
-            <pre><code>&lt;div id="target"&gt;안녕하세요.&lt;/div&gt;
+            <pre><code class="lang-html">&lt;div id="target"&gt;안녕하세요.&lt;/div&gt;
 &lt;script&gt;
     TypeHangul.type('#target');
 &lt;/script&gt;</code></pre>
@@ -87,7 +89,7 @@
         <article id="events">
             <h2>이벤트</h2>
             <p>타이핑 진행 과정에 따라 <code>selector</code>로 선택된 DOM에 이벤트(<a href="https://developer.mozilla.org/ko/docs/Web/API/CustomEvent" target="_blank">CustomEvent</a>)를 발생시킵니다. 이벤트 리스너의 첫 번째 매개변수 <code>e</code>의 <code>detail</code>로 이벤트 데이터를 전달합니다.</p>
-            <pre><code>&lt;div id="target"&gt;타이핑&lt;/div&gt;
+            <pre><code class="lang-html">&lt;div id="target"&gt;타이핑&lt;/div&gt;
 &lt;script&gt;
     var $target = document.querySelector('#target');
     $target.addEventListener('th.afterType', function (e) {
@@ -95,7 +97,7 @@
     });
     TypeHangul.type('#target');
 &lt;/script&gt;</code></pre>
-            <pre><code>ㅌ
+            <pre><code class="plaintext">ㅌ
 타
 탕
 타이
@@ -144,6 +146,7 @@
     </footer>
     <script>
         TypeHangul.type('#home-title');
+        hljs.initHighlightingOnLoad();
     </script>
 </body>
 
