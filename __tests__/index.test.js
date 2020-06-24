@@ -10,7 +10,6 @@ describe('type()', () => {
             let options = {
                 text: '타이핑',
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
@@ -31,7 +30,6 @@ describe('type()', () => {
                 text: '안녕',
                 append: true,
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['이젠ㅇ', '이젠아', '이젠안', '이젠안ㄴ', '이젠안녀', '이젠안녕'];
@@ -50,7 +48,6 @@ describe('type()', () => {
             let selector = '#target';
             let options = {
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
@@ -70,7 +67,6 @@ describe('type()', () => {
             let options = {
                 text: '타이핑',
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
