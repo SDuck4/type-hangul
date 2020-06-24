@@ -10,7 +10,6 @@ describe('type()', () => {
             let options = {
                 text: '타이핑',
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
@@ -31,7 +30,6 @@ describe('type()', () => {
                 text: '안녕',
                 append: true,
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['이젠ㅇ', '이젠아', '이젠안', '이젠안ㄴ', '이젠안녀', '이젠안녕'];
@@ -50,7 +48,6 @@ describe('type()', () => {
             let selector = '#target';
             let options = {
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
@@ -70,13 +67,49 @@ describe('type()', () => {
             let options = {
                 text: '타이핑',
                 intervalType: 1000,
-                intervalChar: 0,
             };
             let target = document.querySelector('#target');
             let textProcess = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
             TypeHangul.type(selector, options);
             for (let i = 0; i < textProcess.length; i++) {
                 expect(target.value).toBe(textProcess[i]);
+                jest.advanceTimersByTime(1000);
+            }
+        });
+    });
+
+    describe('selector로 여러 DOM을 선택해 적용할 수 있다.', () => {
+        it('여러 DOM이 선택될 때, 선택된 모든 DOM에 타이핑 효과가 적용된다.', () => {
+            jest.useFakeTimers();
+
+            document.body.innerHTML = '<div id="t1" class="target">한글</div>'
+                + '<div id="t2" class="target">타이핑</div>'
+                + '<div id="t3" class="target">효과</div>';
+            let selector = '.target';
+            let options = {
+                intervalType: 1000,
+            };
+
+            let t1 = document.querySelector('#t1');
+            let t1Process = ['ㅎ', '하', '한', '한ㄱ', '한그', '한글'];
+
+            let t2 = document.querySelector('#t2');
+            let t2Process = ['ㅌ', '타', '탕', '타이', '타잎', '타이피', '타이핑'];
+
+            let t3 = document.querySelector('#t3');
+            let t3Process = ['ㅎ', '효', '횩', '효고', '효과'];
+
+            TypeHangul.type(selector, options);
+            for (let i = 0; i < t2Process.length; i++) {
+                if (i < t1Process.length) {
+                    expect(t1.textContent).toBe(t1Process[i]);
+                }
+                if (i < t2Process.length) {
+                    expect(t2.textContent).toBe(t2Process[i]);
+                }
+                if (i < t3Process.length) {
+                    expect(t3.textContent).toBe(t3Process[i]);
+                }
                 jest.advanceTimersByTime(1000);
             }
         });
