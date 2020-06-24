@@ -53,13 +53,10 @@ function _process(text) {
 }
 
 // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
-function _type(selector, options) {
+function _type(target, options) {
 
     // 기본 옵션 적용
     options = _merge(DEFAULT_OPTIONS, options);
-
-    // 출력 대상 DOM
-    let target = document.querySelector(selector);
 
     // text가 정의되지 않은 경우, target의 내용을 text로 설정
     if (options.text === null) {
@@ -149,7 +146,12 @@ const TypeHangul = {
             throw new Error("'selector' cannnot be null");
         }
 
-        _type(selector, options);
+        // 출력 대상 DOM
+        let target = document.querySelectorAll(selector);
+        for (let i = 0; i < target.length; i++) {
+            _type(target[i], options);
+        }
+
     },
 };
 
