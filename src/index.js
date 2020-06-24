@@ -5,6 +5,7 @@
  * MIT License
  * Copyright (c) 2020 Chae SeungWoo
  */
+'use strict';
 
 import { d, a } from 'hangul-js';
 
@@ -69,8 +70,8 @@ function _type(target, options) {
     let idxRun = 0;
     let idxType = 0;
     let interval = options.intervalType;
-    let lastType;
-    lastType = options.append ? _getText(target) : '';
+    let lastType = options.append ? _getText(target) : '';
+    let progress = lastType;
 
     // 타이핑 인터벌 함수
     function doType() {
@@ -82,11 +83,17 @@ function _type(target, options) {
         if (idxType >= run.length) {
             idxRun = idxRun + 1;
             idxType = 0;
-            lastType = target.textContent;
             lastType = _getText(target);
 
             // text 타이핑 완료
             if (idxRun >= textProcess.length) {
+                const eventEndType = new CustomEvent('th.endType', {
+                    detail: {
+                        target,
+                        options,
+                    },
+                });
+                target.dispatchEvent(eventEndType);
                 return;
             }
 
@@ -96,14 +103,44 @@ function _type(target, options) {
 
         // 타이핑 과정 출력
         let typing = a(run.slice(0, idxType + 1));
-        _setText(target, lastType + typing);
+        let typeChar = run[idxType];
+
+        const eventBeforeType = new CustomEvent('th.beforeType', {
+            detail: {
+                target,
+                options,
+                progress,
+                typeChar,
+            },
+        });
+        target.dispatchEvent(eventBeforeType);
+
+        progress = lastType + typing;
+        _setText(target, progress);
         idxType = idxType + 1;
         interval = options.intervalType;
+
+        const eventAfterType = new CustomEvent('th.afterType', {
+            detail: {
+                target,
+                options,
+                progress,
+                typeChar,
+            },
+        });
+        target.dispatchEvent(eventAfterType);
 
         setTimeout(doType, interval);
     }
 
     // 타이핑 인터벌 시작
+    const eventStartType = new CustomEvent('th.startType', {
+        detail: {
+            target,
+            options,
+        },
+    });
+    target.dispatchEvent(eventStartType);
     doType();
 
 }

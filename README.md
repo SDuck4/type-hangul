@@ -60,6 +60,64 @@
 
 타이핑 사이 시간 간격을 설정합니다.
 
+## 이벤트
+
+타이핑 진행 과정에 따라 `selector`로 선택된 DOM에 이벤트([CustomEvent](https://developer.mozilla.org/ko/docs/Web/API/CustomEvent))를 발생시킵니다. 이벤트 리스너의 첫 번째 매개변수 `e`의 `detail`로 이벤트 데이터를 전달합니다.
+
+```html
+<div id="target">타이핑</div>
+<script>
+    var $target = document.querySelector('#target');
+    $target.addEventListener('th.afterType', function (e) {
+        console.log(e.detail.progress);
+    });
+    TypeHangul.type('#target');
+</script>
+```
+```
+ㅌ
+타
+탕
+타이
+타잎
+타이피
+타이핑
+```
+
+### `th.startType`
+
+- `target`: 타이핑 효과 대상 DOM
+- `options`: `type()` 호출 시 옵션과 기본 옵션을 합친 객체
+
+타이핑을 시작할 때 발생합니다.
+
+> `th.startType` 이벤트는 `type()` 호출 직후에 이벤트가 발생합니다. 이벤트 리스너가 정상적으로 동작하기 위해서는 `type()` 호출 이전에 리스너를 추가하세요.
+
+### `th.endType`
+
+- `target`: 타이핑 효과 대상 DOM
+- `options`: `type()` 호출 시 옵션과 기본 옵션을 합친 객체
+
+타이핑을 종료할 때 발생합니다.
+
+### `th.beforeType`
+
+- `target`: 타이핑 효과 대상 DOM
+- `options`: `type()` 호출 시 옵션과 기본 옵션을 합친 객체
+- `progress`: 현재까지 출력한 타이핑 텍스트
+- `typeChar`: 이번에 타이핑할 문자
+
+매번 타이핑 이전에 발생합니다.
+
+### `th.afterType`
+
+- `target`: 타이핑 효과 대상 DOM
+- `options`: `type()` 호출 시 옵션과 기본 옵션을 합친 객체
+- `progress`: 현재까지 출력한 타이핑 텍스트
+- `typeChar`: 이번에 타이핑한 문자
+
+매번 타이핑 이후에 발생합니다.
+
 ## License
 
 [MIT](https://github.com/SDuck4/type-hangul/blob/master/LICENSE)

@@ -20,7 +20,8 @@
                 <li><a href="#install">설치</a></li>
                 <li><a href="#how-to-use">사용법</a></li>
                 <li><a href="#options">옵션</a></li>
-                <li><a href="https://github.com/SDuck4/type-hangul">GitHub</a></li>
+                <li><a href="#events">이벤트</a></li>
+                <li><a href="https://github.com/SDuck4/type-hangul" target="_blank">GitHub</a></li>
             </ul>
         </nav>
         <div id="home">
@@ -45,7 +46,7 @@
 &lt;!-- 의존 라이브러리 번들한 파일 로드 --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/type-hangul"&gt;&lt;/script&gt;</code></pre>
             <h3>직접 다운로드</h3>
-            <p><a href="https://github.com/SDuck4/type-hangul/releases">GitHub Releases</a>에서 최신 릴리즈를 직접 다운로드 받아 사용하실 수 있습니다.</p>
+            <p><a href="https://github.com/SDuck4/type-hangul/releases" target="_blank">GitHub Releases</a>에서 최신 릴리즈를 직접 다운로드 받아 사용하실 수 있습니다.</p>
         </article>
         <hr>
         <article id="how-to-use">
@@ -82,13 +83,62 @@
             </ul>
             <p>타이핑 사이 시간 간격을 설정합니다.</p>
         </article>
+        <hr>
+        <article id="events">
+            <h2>이벤트</h2>
+            <p>타이핑 진행 과정에 따라 <code>selector</code>로 선택된 DOM에 이벤트(<a href="https://developer.mozilla.org/ko/docs/Web/API/CustomEvent" target="_blank">CustomEvent</a>)를 발생시킵니다. 이벤트 리스너의 첫 번째 매개변수 <code>e</code>의 <code>detail</code>로 이벤트 데이터를 전달합니다.</p>
+            <pre><code>&lt;div id="target"&gt;타이핑&lt;/div&gt;
+&lt;script&gt;
+    var $target = document.querySelector('#target');
+    $target.addEventListener('th.afterType', function (e) {
+        console.log(e.detail.progress);
+    });
+    TypeHangul.type('#target');
+&lt;/script&gt;</code></pre>
+            <pre><code>ㅌ
+타
+탕
+타이
+타잎
+타이피
+타이핑</code></pre>
+            <h3><code>th.startType</code></h3>
+            <ul>
+                <li><code>target</code>: 타이핑 효과 대상 DOM</li>
+                <li><code>options</code>: <code>type()</code> 호출 시 옵션과 기본 옵션을 합친 객체</li>
+            </ul>
+            <p>타이핑을 시작할 때 발생합니다.</p>
+            <aside><code>th.startType</code> 이벤트는 <code>type()</code> 호출 직후에 이벤트가 발생합니다. 이벤트 리스너가 정상적으로 동작하기 위해서는 <code>type()</code> 호출 이전에 리스너를 추가하세요.</aside>
+            <h3><code>th.endType</code></h3>
+            <ul>
+                <li><code>target</code>: 타이핑 효과 대상 DOM</li>
+                <li><code>options</code>: <code>type()</code> 호출 시 옵션과 기본 옵션을 합친 객체</li>
+            </ul>
+            <p>타이핑을 종료할 때 발생합니다.</p>
+            <h3><code>th.beforeType</code></h3>
+            <ul>
+                <li><code>target</code>: 타이핑 효과 대상 DOM</li>
+                <li><code>options</code>: <code>type()</code> 호출 시 옵션과 기본 옵션을 합친 객체</li>
+                <li><code>progress</code>: 현재까지 출력한 타이핑 텍스트</li>
+                <li><code>typeChar</code>: 이번에 타이핑할 문자</li>
+            </ul>
+            <p>매번 타이핑 이전에 발생합니다.</p>
+            <h3><code>th.afterType</code></h3>
+            <ul>
+                <li><code>target</code>: 타이핑 효과 대상 DOM</li>
+                <li><code>options</code>: <code>type()</code> 호출 시 옵션과 기본 옵션을 합친 객체</li>
+                <li><code>progress</code>: 현재까지 출력한 타이핑 텍스트</li>
+                <li><code>typeChar</code>: 이번에 타이핑한 문자</li>
+            </ul>
+            <p>매번 타이핑 이후에 발생합니다.</p>
+        </article>
     </main>
     <footer>
         <hr>
         <section>
             <p>
-                <strong>type-hangul</strong> by <a href="https://github.com/SDuck4">SDuck4</a>.
-                The source code is licensed <a href="https://github.com/SDuck4/type-hangul/blob/master/LICENSE">MIT</a>.
+                <strong>type-hangul</strong> by <a href="https://github.com/SDuck4" target="_blank">SDuck4</a>.
+                The source code is licensed <a href="https://github.com/SDuck4/type-hangul/blob/master/LICENSE" target="_blank">MIT</a>.
             </p>
         </section>
     </footer>
