@@ -89,8 +89,10 @@ function _type(target, options) {
             // text 타이핑 완료
             if (idxRun >= textProcess.length) {
                 const eventEndType = new CustomEvent('th.endType', {
-                    target,
-                    options,
+                    detail: {
+                        target,
+                        options,
+                    },
                 });
                 target.dispatchEvent(eventEndType);
                 return;
@@ -104,9 +106,11 @@ function _type(target, options) {
         let typing = a(run.slice(0, idxType + 1));
 
         const eventBeforeType = new CustomEvent('th.beforeType', {
-            target,
-            options,
-            typing,
+            detail: {
+                target,
+                options,
+                typing,
+            },
         });
         target.dispatchEvent(eventBeforeType);
 
@@ -115,9 +119,11 @@ function _type(target, options) {
         interval = options.intervalType;
 
         const eventAfterType = new CustomEvent('th.afterType', {
-            target,
-            options,
-            typing,
+            detail: {
+                target,
+                options,
+                typing,
+            },
         });
         target.dispatchEvent(eventAfterType);
 
@@ -126,8 +132,10 @@ function _type(target, options) {
 
     // 타이핑 인터벌 시작
     const eventStartType = new CustomEvent('th.startType', {
-        target,
-        options,
+        detail: {
+            target,
+            options,
+        },
     });
     target.dispatchEvent(eventStartType);
     doType();
