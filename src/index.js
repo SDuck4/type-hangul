@@ -5,6 +5,7 @@
  * MIT License
  * Copyright (c) 2020 Chae SeungWoo
  */
+'use strict';
 
 import { d, a } from 'hangul-js';
 
