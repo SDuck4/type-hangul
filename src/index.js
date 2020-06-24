@@ -102,6 +102,14 @@ function _type(target, options) {
 
         // 타이핑 과정 출력
         let typing = a(run.slice(0, idxType + 1));
+
+        const eventBeforeType = new CustomEvent('th.beforeType', {
+            target,
+            options,
+            typing,
+        });
+        target.dispatchEvent(eventBeforeType);
+
         _setText(target, lastType + typing);
         idxType = idxType + 1;
         interval = options.intervalType;
