@@ -70,8 +70,8 @@ function _type(target, options) {
     let idxRun = 0;
     let idxType = 0;
     let interval = options.intervalType;
-    let lastType;
-    lastType = options.append ? _getText(target) : '';
+    let lastType = options.append ? _getText(target) : '';
+    let progress = lastType;
 
     // 타이핑 인터벌 함수
     function doType() {
@@ -83,7 +83,6 @@ function _type(target, options) {
         if (idxType >= run.length) {
             idxRun = idxRun + 1;
             idxType = 0;
-            lastType = target.textContent;
             lastType = _getText(target);
 
             // text 타이핑 완료
@@ -104,17 +103,20 @@ function _type(target, options) {
 
         // 타이핑 과정 출력
         let typing = a(run.slice(0, idxType + 1));
+        let typeChar = run[idxType];
 
         const eventBeforeType = new CustomEvent('th.beforeType', {
             detail: {
                 target,
                 options,
-                typing,
+                progress,
+                typeChar,
             },
         });
         target.dispatchEvent(eventBeforeType);
 
-        _setText(target, lastType + typing);
+        progress = lastType + typing;
+        _setText(target, progress);
         idxType = idxType + 1;
         interval = options.intervalType;
 
@@ -122,7 +124,8 @@ function _type(target, options) {
             detail: {
                 target,
                 options,
-                typing,
+                progress,
+                typeChar,
             },
         });
         target.dispatchEvent(eventAfterType);
