@@ -114,6 +114,13 @@ function _type(target, options) {
         idxType = idxType + 1;
         interval = options.intervalType;
 
+        const eventAfterType = new CustomEvent('th.afterType', {
+            target,
+            options,
+            typing,
+        });
+        target.dispatchEvent(eventAfterType);
+
         setTimeout(doType, interval);
     }
 
