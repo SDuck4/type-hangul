@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+const package = require('./package.json');
 
-const banner = `type-hangul
+const banner = `type-hangul v${package.version}
 https://github.com/SDuck4/type-hangul
 
 MIT License
