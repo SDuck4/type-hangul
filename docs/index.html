@@ -44,17 +44,23 @@
         <hr>
         <article id="summary">
             <h2>개요</h2>
+            <figure>
+                <img src="./demo.gif" alt="데모">
+                <figcaption>윤동주, <em>서시</em></figcaption>
+            </figure>
             <p>한글 두벌식 자판에서 한 글자씩 타이핑되는 과정을 보여줄 수 있는 라이브러리입니다.</p>
         </article>
         <hr>
         <article id="install">
             <h2>설치</h2>
             <h3>CDN</h3>
+            <p>한글 자모음 처리에 <a href="https://github.com/e-/Hangul.js" target="_blank">Hangul-js</a>를 사용하고 있습니다.</p>
+            <p><strong>Hangul-js</strong>와 <strong>type-hangul</strong>을 따로 로드하려면 아래 코드를 사용하세요.</p>
             <pre><code class="lang-html">&lt;!-- 의존 라이브러리와 별개로 로드 --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/hangul-js"&gt;&lt;/script&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/type-hangul@latest/dist/type-hangul.min.js"&gt;&lt;/script&gt;
-
-&lt;!-- 의존 라이브러리 번들한 파일 로드 --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/type-hangul@latest/dist/type-hangul.min.js"&gt;&lt;/script&gt;</code></pre>
+            <p><strong>Hangul-js</strong>를 번들링한 <strong>type-hangul</strong>을 로드하려면 아래 코드를 사용하세요.</p>
+            <pre><code class="lang-html">&lt;!-- 의존 라이브러리 번들한 파일 로드 --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/type-hangul"&gt;&lt;/script&gt;</code></pre>
             <h3>직접 다운로드</h3>
             <p><a href="https://github.com/SDuck4/type-hangul/releases" target="_blank">GitHub Releases</a>에서 최신 릴리즈를 직접 다운로드 받아 사용하실 수 있습니다.</p>
