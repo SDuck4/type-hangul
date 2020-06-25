@@ -12,11 +12,19 @@ https://sduck4.github.io/type-hangul/
 
 ### CDN
 
+한글 자모음 처리에 [Hangul-js](https://github.com/e-/Hangul.js)를 사용하고 있습니다.
+
+**Hangul-js**와 **type-hangul**을 따로 로드하려면 아래 코드를 사용하세요.
+
 ```html
 <!-- 의존 라이브러리와 별개로 로드 -->
 <script src="https://unpkg.com/hangul-js"></script>
 <script src="https://unpkg.com/type-hangul@latest/dist/type-hangul.min.js"></script>
+```
 
+**Hangul-js**를 번들링한 **type-hangul**을 로드하려면 아래 코드를 사용하세요.
+
+```html
 <!-- 의존 라이브러리 번들한 파일 로드 -->
 <script src="https://unpkg.com/type-hangul"></script>
 ```
