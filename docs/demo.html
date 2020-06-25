@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>type-hangul: ⌨️ 한글 타이핑 효과 라이브러리</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
+    <style>
+        * { font-family: "Noto Sans KR", sans-serif; }
+        .container { height: 40px; padding: 36px 24px; }
+        #demo { font-size: 40px; line-height: 40px; }
+    </style>
+    <script src="https://unpkg.com/type-hangul"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="demo"></div>
+    </div>
+    <button id="start">시작</button>
+    <script>
+        document.querySelector('#start').addEventListener('click', function () {
+            TypeHangul.type('#demo', {
+                text: '오늘 밤에도 별이 바람에 스치운다.',
+            });
+        });
+    </script>
+</body>
+
+</html>

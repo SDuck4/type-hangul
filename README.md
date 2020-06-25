@@ -6,6 +6,9 @@ https://sduck4.github.io/type-hangul/
 
 ## 개요
 
+![데모](docs/demo.gif)
+> 윤동주, *서시*
+
 한글 두벌식 자판에서 한 글자씩 타이핑되는 과정을 보여줄 수 있는 라이브러리입니다.
 
 ## 설치
