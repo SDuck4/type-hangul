@@ -99,6 +99,19 @@
                 <li>기본값: <code>120</code></li>
             </ul>
             <p>타이핑 사이 시간 간격을 설정합니다.</p>
+            <h3><code>humanize</code></h3>
+            <ul>
+                <li>타입: <code>number|function</code></li>
+                <li>기본값: <code>null</code></li>
+            </ul>
+            <p>실제 사람이 타이핑하는 것처럼 매 타이핑 마다 <code>intervalType</code>를 랜덤화합니다.</p>
+            <p><code>number</code>을 설정할 경우, 해당 비율만큼 <code>intervalType</code>을 랜덤화합니다. 예를 들어, 다음과 같은 옵션인 경우</p>
+            <pre><code class="lang-js">{
+    intervalType: 100,
+    humanize: 0.5,
+}</code></pre>
+            <p><code>intervalType</code>은 원래 값의 0.5배인 <code>50</code>부터 1.5배인 <code>150</code> 사이의 랜덤한 값으로 설정됩니다.</pre>
+            <p><code>function</code>을 설정한 경우, 해당 함수를 사용해 <code>intervalType</code>을 랜덤화합니다. 함수의 첫 번째 매개변수로 <code>intervalType</code> 값이 주어집니다.</p>
         </article>
         <hr>
         <article id="events">
