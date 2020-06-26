@@ -21,6 +21,9 @@ const DEFAULT_OPTIONS = {
     // 타이핑 사이 시간 간격, ms
     intervalType: 120,
 
+    // 사람이 타이핑하는 것처럼 intervalType를 랜덤화
+    humanize: null,
+
 };
 
 // text가 타이핑되는 과정을 반환함
@@ -69,9 +72,23 @@ function _type(target, options) {
     let textProcess = _process(text);
     let idxRun = 0;
     let idxType = 0;
-    let interval = options.intervalType;
+    let intervalType;
     let lastType = options.append ? _getText(target) : '';
     let progress = lastType;
+
+    // intervalType 계산 함수
+    function getIntervalType() {
+        if (options.humanize === null) {
+            return options.intervalType;
+        }
+        if (typeof options.humanize === 'number') {
+            return _humanize(options.intervalType, options.humanize);
+        }
+        if (typeof options.humanize === 'function') {
+            return options.humanize(options.intervalType);
+        }
+        throw new Error("'humanize' cannnot be " + typeof options.humanize);
+    }
 
     // 타이핑 인터벌 함수
     function doType() {
@@ -97,7 +114,8 @@ function _type(target, options) {
                 return;
             }
 
-            setTimeout(doType, interval);
+            intervalType = getIntervalType();
+            setTimeout(doType, intervalType);
             return;
         }
 
@@ -118,7 +136,6 @@ function _type(target, options) {
         progress = lastType + typing;
         _setText(target, progress);
         idxType = idxType + 1;
-        interval = options.intervalType;
 
         const eventAfterType = new CustomEvent('th.afterType', {
             detail: {
@@ -130,7 +147,8 @@ function _type(target, options) {
         });
         target.dispatchEvent(eventAfterType);
 
-        setTimeout(doType, interval);
+        intervalType = getIntervalType();
+        setTimeout(doType, intervalType);
     }
 
     // 타이핑 인터벌 시작
@@ -170,6 +188,13 @@ function _setText(target, text) {
     } else {
         target.textContent = text;
     }
+}
+
+// 기본 humanize 함수, number를 ratio 비율로 랜덤화해서 반환
+function _humanize(number, ratio) {
+    let min = number - number * ratio;
+    let max = number + number * ratio;
+    return Math.round(Math.random() * (max - min) + min);
 }
 
 const TypeHangul = {
