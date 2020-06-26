@@ -1,6 +1,6 @@
 {
   "name": "type-hangul",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "한글 타이핑 효과",
   "main": "dist/type-hangul.bundle.js",
   "scripts": {
