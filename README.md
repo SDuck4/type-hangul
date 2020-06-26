@@ -73,6 +73,24 @@ https://sduck4.github.io/type-hangul/
 
 타이핑 사이 시간 간격을 설정합니다.
 
+### `humanize`
+
+- 타입: `number|function`
+- 기본값: `null`
+
+실제 사람이 타이핑하는 것처럼 매 타이핑 마다 `intervalType`를 랜덤화합니다.
+
+`number`을 설정할 경우, 해당 비율만큼 `intervalType`을 랜덤화합니다. 예를 들어, 다음과 같은 옵션인 경우
+```js
+{
+    intervalType: 100,
+    humanize: 0.5,
+}
+```
+`intervalType`은 원래 값의 0.5배인 `50`부터 1.5배인 `150` 사이의 랜덤한 값으로 설정됩니다.
+
+`function`을 설정한 경우, 해당 함수를 사용해 `intervalType`을 랜덤화합니다. 함수의 첫 번째 매개변수로 `intervalType` 값이 주어집니다.
+
 ## 이벤트
 
 타이핑 진행 과정에 따라 `selector`로 선택된 DOM에 이벤트([CustomEvent](https://developer.mozilla.org/ko/docs/Web/API/CustomEvent))를 발생시킵니다. 이벤트 리스너의 첫 번째 매개변수 `e`의 `detail`로 이벤트 데이터를 전달합니다.
