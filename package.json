@@ -1,36 +1,45 @@
 {
-  "name": "type-hangul",
-  "version": "0.2.4",
-  "description": "한글 타이핑 효과",
-  "main": "dist/type-hangul.bundle.js",
-  "scripts": {
-    "test": "jest",
-    "build": "webpack"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SDuck4/type-hangul.git"
-  },
-  "author": "SDuck4 <cotmddn4@gmail.com>",
-  "keywords": [
-    "hangul",
-    "korean",
-    "typing"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SDuck4/type-hangul/issues"
-  },
-  "homepage": "https://sduck4.github.io/type-hangul/",
-  "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "babel-jest": "^26.0.1",
-    "jest": "^26.0.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
-  },
-  "dependencies": {
-    "hangul-js": "^0.2.6"
-  }
+	"name": "type-hangul",
+	"version": "0.2.4",
+	"description": "한글 타이핑 효과",
+	"main": "bin/type-hangul.bundle.js",
+	"scripts": {
+		"test": "jest",
+		"build": "tsc && webpack"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SDuck4/type-hangul.git"
+	},
+	"author": "SDuck4 <cotmddn4@gmail.com>",
+	"keywords": [
+		"hangul",
+		"korean",
+		"typing"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/SDuck4/type-hangul/issues"
+	},
+	"homepage": "https://sduck4.github.io/type-hangul/",
+	"devDependencies": {
+		"@babel/core": "^7.10.3",
+		"@babel/preset-env": "^7.10.3",
+		"@types/jest": "^27.0.1",
+		"@types/node": "^16.6.2",
+		"babel-jest": "^26.0.1",
+		"jest": "^26.0.1",
+		"ts-jest": "^27.0.5",
+		"ts-loader": "^8.2.0",
+		"typescript": "^4.3.5",
+		"webpack": "^4.43.0",
+		"webpack-cli": "^3.3.12"
+	},
+	"dependencies": {
+		"hangul-js": "^0.2.6"
+	},
+	"types": "bin/index.d.ts",
+	"files": [
+		"bin"
+	]
 }
