@@ -92,19 +92,20 @@ function _type(target: Element, options: Options) {
 
 		// run 타이핑 완료
 		if (idxType >= run.length) {
-			idxRun = idxRun + 1;
+			idxRun++;
 			idxType = 0;
 			lastType = _getText(target);
 
 			// text 타이핑 완료
 			if (idxRun >= textProcess.length) {
-				const eventEndType = new CustomEvent("th.endType", {
-					detail: {
-						target,
-						options
-					}
-				});
-				target.dispatchEvent(eventEndType);
+				target.dispatchEvent(
+					new CustomEvent("th.endType", {
+						detail: {
+							target,
+							options
+						}
+					})
+				);
 				return;
 			}
 
@@ -117,42 +118,45 @@ function _type(target: Element, options: Options) {
 		const typing = a(run.slice(0, idxType + 1)),
 			typeChar = run[idxType];
 
-		const eventBeforeType = new CustomEvent("th.beforeType", {
-			detail: {
-				target,
-				options,
-				progress,
-				typeChar
-			}
-		});
-		target.dispatchEvent(eventBeforeType);
+		target.dispatchEvent(
+			new CustomEvent("th.beforeType", {
+				detail: {
+					target,
+					options,
+					progress,
+					typeChar
+				}
+			})
+		);
 
 		progress = lastType + typing;
 		_setText(target, progress);
-		idxType = idxType + 1;
+		idxType++;
 
-		const eventAfterType = new CustomEvent("th.afterType", {
-			detail: {
-				target,
-				options,
-				progress,
-				typeChar
-			}
-		});
-		target.dispatchEvent(eventAfterType);
+		target.dispatchEvent(
+			new CustomEvent("th.afterType", {
+				detail: {
+					target,
+					options,
+					progress,
+					typeChar
+				}
+			})
+		);
 
 		intervalType = getIntervalType();
 		setTimeout(doType, intervalType);
 	}
 
 	// 타이핑 인터벌 시작
-	const eventStartType = new CustomEvent("th.startType", {
-		detail: {
-			target,
-			options
-		}
-	});
-	target.dispatchEvent(eventStartType);
+	target.dispatchEvent(
+		new CustomEvent("th.startType", {
+			detail: {
+				target,
+				options
+			}
+		})
+	);
 	doType();
 }
 

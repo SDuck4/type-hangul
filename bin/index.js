@@ -68,18 +68,17 @@ function _type(target, options) {
         const run = textProcess[idxRun];
         // run 타이핑 완료
         if (idxType >= run.length) {
-            idxRun = idxRun + 1;
+            idxRun++;
             idxType = 0;
             lastType = _getText(target);
             // text 타이핑 완료
             if (idxRun >= textProcess.length) {
-                const eventEndType = new CustomEvent("th.endType", {
+                target.dispatchEvent(new CustomEvent("th.endType", {
                     detail: {
                         target,
                         options
                     }
-                });
-                target.dispatchEvent(eventEndType);
+                }));
                 return;
             }
             intervalType = getIntervalType();
@@ -88,38 +87,35 @@ function _type(target, options) {
         }
         // 타이핑 과정 출력
         const typing = hangul_js_1.a(run.slice(0, idxType + 1)), typeChar = run[idxType];
-        const eventBeforeType = new CustomEvent("th.beforeType", {
+        target.dispatchEvent(new CustomEvent("th.beforeType", {
             detail: {
                 target,
                 options,
                 progress,
                 typeChar
             }
-        });
-        target.dispatchEvent(eventBeforeType);
+        }));
         progress = lastType + typing;
         _setText(target, progress);
-        idxType = idxType + 1;
-        const eventAfterType = new CustomEvent("th.afterType", {
+        idxType++;
+        target.dispatchEvent(new CustomEvent("th.afterType", {
             detail: {
                 target,
                 options,
                 progress,
                 typeChar
             }
-        });
-        target.dispatchEvent(eventAfterType);
+        }));
         intervalType = getIntervalType();
         setTimeout(doType, intervalType);
     }
     // 타이핑 인터벌 시작
-    const eventStartType = new CustomEvent("th.startType", {
+    target.dispatchEvent(new CustomEvent("th.startType", {
         detail: {
             target,
             options
         }
-    });
-    target.dispatchEvent(eventStartType);
+    }));
     doType();
 }
 // target DOM의 텍스트를 반환
