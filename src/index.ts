@@ -56,7 +56,7 @@ function _process(text: string) {
 }
 
 // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
-function _type(target: Element, options: Options) {
+function _type(target: Element, options: Options = {}) {
 	// 기본 옵션 적용
 	options = { ...DEFAULT_OPTIONS, ...options };
 
@@ -185,7 +185,7 @@ function _humanize(number: number, ratio: number) {
 }
 
 const TypeHangul = {
-	type: (selector: string, options: Options) => {
+	type: (selector: string, options?: Options) => {
 		// selector 필수 입력
 		if (!selector) throw new Error("'selector' must be defined.");
 
@@ -195,5 +195,5 @@ const TypeHangul = {
 	}
 };
 
-(window as any).TypeHangul = TypeHangul;
+if (typeof window !== "undefined") (window as any).TypeHangul = TypeHangul;
 export default TypeHangul;

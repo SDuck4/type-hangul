@@ -12,6 +12,6 @@ export interface Options {
     humanize?: number | Function | null;
 }
 declare const TypeHangul: {
-    type: (selector: string, options: Options) => void;
+    type: (selector: string, options?: Options | undefined) => void;
 };
 export default TypeHangul;

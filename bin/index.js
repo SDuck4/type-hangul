@@ -43,7 +43,7 @@ function _process(text) {
     return textProcess;
 }
 // text가 타이핑되는 과정을 selector로 선택한 DOM의 텍스트로 출력함
-function _type(target, options) {
+function _type(target, options = {}) {
     // 기본 옵션 적용
     options = { ...DEFAULT_OPTIONS, ...options };
     // text가 정의되지 않은 경우, target의 내용을 text로 설정
@@ -151,6 +151,7 @@ const TypeHangul = {
             _type(target[i], options);
     }
 };
-window.TypeHangul = TypeHangul;
+if (typeof window !== "undefined")
+    window.TypeHangul = TypeHangul;
 exports.default = TypeHangul;
 //# sourceMappingURL=index.js.map
