@@ -81,6 +81,10 @@ function _type(target, options) {
                 }));
                 return;
             }
+            if (run.length === 1) {
+                doType();
+                return;
+            }
             intervalType = getIntervalType();
             setTimeout(doType, intervalType);
             return;

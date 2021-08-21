@@ -109,6 +109,10 @@ function _type(target: Element, options: Options) {
 				return;
 			}
 
+			if (run.length === 1) {
+				doType();
+				return;
+			}
 			intervalType = getIntervalType();
 			setTimeout(doType, intervalType);
 			return;
